@@ -36,22 +36,22 @@ const MoviesScreen = () => {
             case "Now Playing":
                 res = await fetchMovies(END_POINTS.NOW_PLAYING, page + 1)
                 setPage(page + 1)
-                setMovies([...movies, ...res.results])
+                setMovies([...movies!, ...res.results])
                 break;
             case "Popular":
                 res = await fetchMovies(END_POINTS.POPULAR, page + 1)
                 setPage(page + 1)
-                setMovies([...movies, ...res.results])
+                setMovies([...movies!, ...res.results])
                 break;
             case "Top Rated":
                 res = await fetchMovies(END_POINTS.TOP_RATED, page + 1)
                 setPage(page + 1)
-                setMovies([...movies, ...res.results])
+                setMovies([...movies!, ...res.results])
                 break;
             case "Upcoming":
                 res = await fetchMovies(END_POINTS.UPCOMING, page + 1)
                 setPage(page + 1)
-                setMovies([...movies, ...res.results])
+                setMovies([...movies!, ...res.results])
                 break;
             default:
                 break;

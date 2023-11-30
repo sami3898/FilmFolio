@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer, NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts, Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold} from '@expo-google-fonts/poppins'
+import 'react-native-reanimated'
 
 // Screens
 import HomeScreen from './src/screens/HomeScreen'

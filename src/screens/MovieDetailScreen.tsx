@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, ScrollView, Pressable, FlatList } from "react-n
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../utils/Colors";
 import CustomStatusBar from "../components/CustomStatusBar";
-import { Cast, CastDetails, Genre, MovieDetails } from "../utils/Types";
-import { fetchMovieCast, fetchMovieDetails } from "../utils/ApiHelper";
+import { Cast, CastDetails, Genre, MovieDetails, MovieImages } from "../utils/Types";
+import { fetchMovieCast, fetchMovieDetails, fetchMovieShots } from "../utils/ApiHelper";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import AppHeader from "../components/AppHeader";
@@ -20,10 +20,12 @@ import Animated, {
     withTiming,
 } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
+import ImageSlider from "../components/ImageSlider";
 
 const MovieDetailScreen = () => {
     const [movieDetails, setMovieDetails] = useState<MovieDetails>();
     const [castDetails, setCastDetails] = useState<CastDetails>();
+    const [movieImages, setMovieImages] = useState<MovieImages>();
     const [detailsSelectedIndex, setDeatilsSelectedIndex] = useState<number>(0);
 
     const route = useRoute<RouteProp<RootStackParamList>>();
@@ -40,8 +42,13 @@ const MovieDetailScreen = () => {
             let res = await fetchMovieCast(id);
             setCastDetails(res);
         }
+        async function fetchMovieImages() {
+            let res = await fetchMovieShots(id);
+            setMovieImages(res);
+        }
         fetchDetails();
         fetchCastetails()
+        fetchMovieImages()
     }, []);
 
     const convertTime = (runTime: number) => {
@@ -132,8 +139,6 @@ const MovieDetailScreen = () => {
                 style={{ marginHorizontal: wp(24)}}
                 initialNumToRender={10}
                 maxToRenderPerBatch={20}
-                // ItemSeparatorComponent={() => {return <View style={{height: hp(12)}} />}}
-
             />
         )
     }
@@ -174,12 +179,18 @@ const MovieDetailScreen = () => {
         )
     }
 
+    const renderShots = () => {
+        return <ImageSlider images={movieImages?.backdrops} />
+    }
+
     const renderView = () => {
         switch (detailsSelectedIndex) {
             case 0:
                 return renderOverview()
             case 1:
                 return renderCast()
+            case 2:
+                return renderShots()
             default:
                 break;
         }

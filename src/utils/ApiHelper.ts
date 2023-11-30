@@ -11,7 +11,7 @@ export const END_POINTS = {
     UPCOMING: "movie/upcoming",
     DETAILS: "movie/",
     CREDITS: "/credits",
-    IMAGES: "/images"
+    IMAGES: "/images?include_image_language=null"
 
 
 }

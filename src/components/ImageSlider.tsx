@@ -6,6 +6,7 @@ import { Image } from 'expo-image'
 import Carousel from 'react-native-reanimated-carousel'
 import { COLORS } from '../utils/Colors'
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface ImageSliderProps {
     images: Poster[] | undefined
@@ -56,7 +57,12 @@ const ImageSlider = (props: ImageSliderProps) => {
         />
         <View style={styles.progressView}>
             <Animated.View style={[styles.progressBar, {width: (DEVICE_WIDTH - wp(48)) / images?.length!}, animatedStytle]}>
-
+            <LinearGradient
+                    style={[styles.progressBar, {width: (DEVICE_WIDTH - wp(48)) / images?.length!}]}
+                    colors={["#43A8D4", "#3b5998", "#3F377F"]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                />
             </Animated.View>
         </View>
     </View>
@@ -76,7 +82,7 @@ const styles = StyleSheet.create({
     progressView: {
         height: 10,
         width: "100%",
-        borderWidth: StyleSheet.hairlineWidth,
+        // borderWidth: StyleSheet.hairlineWidth,
         borderColor: COLORS.CYAN_BLUE,
         borderRadius: 16
     },

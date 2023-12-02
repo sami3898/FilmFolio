@@ -90,6 +90,7 @@ const MovieDetailScreen = () => {
             return (
                 
                     <LinearGradient
+                        key={i.toString()}
                         style={[styles.genreContainer, i > 0 && { marginLeft: wp(6)}]}
                         colors={["#43A8D4", "#3b5998", "#3F377F"]}
                         start={{ x: 0, y: 0 }}
@@ -129,18 +130,63 @@ const MovieDetailScreen = () => {
     }
 
     const renderCast = () => {
-        
         return (
-            <FlatList 
-                data={castDetails?.cast}
-                keyExtractor={item => item.id.toString()}
-                renderItem={_renderCastList}
-                nestedScrollEnabled={true}
-                style={{ marginHorizontal: wp(24)}}
-                initialNumToRender={10}
-                maxToRenderPerBatch={20}
-            />
-        )
+            <View style={{ marginHorizontal: wp(24), marginTop: hp(24)}}>
+                {castDetails?.cast?.map((item: Cast, index: number) => {
+                    return (
+                        <View key={index.toString()} style={styles.castContainer}>
+                            <LinearGradient
+                                style={{
+                                    height: wp(60),
+                                    width: wp(60),
+                                    borderRadius: 60,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                                colors={["#43A8D4", "#3b5998", "#3F377F"]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                            >
+                                <Image
+                                    source={{
+                                        uri: `https://image.tmdb.org/t/p/w500/${item.profile_path}`,
+                                    }}
+                                    style={styles.profilePhoto}
+                                    cachePolicy={"memory-disk"}
+                                    contentFit="cover"
+                                />
+                            </LinearGradient>
+                            <View>
+                                <Text style={styles.castName}>
+                                    {item.original_name}
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.castName,
+                                        { fontFamily: FONTS.POPPINS_REGULAR },
+                                    ]}
+                                >
+                                    {item.character}
+                                </Text>
+                            </View>
+                        </View>
+                    );
+                })}
+            </View>
+        );
+        
+
+        // return (
+        //     <FlatList 
+        //         data={castDetails?.cast}
+        //         keyExtractor={item => item.id.toString()}
+        //         renderItem={_renderCastList}
+        //         nestedScrollEnabled={true}
+        //         style={{ marginHorizontal: wp(24)}}
+        //         initialNumToRender={10}
+        //         maxToRenderPerBatch={20}
+        //     />
+        // )
     }
 
     const renderOverview = () => {
@@ -381,7 +427,7 @@ const styles = StyleSheet.create({
     castContainer: {
         flexDirection: "row",
         alignItems: 'center',
-        marginVertical: hp(12)
+        marginBottom: hp(12)
     },
     castName: {
         fontSize: wp(14),

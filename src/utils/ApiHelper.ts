@@ -52,7 +52,6 @@ export const fetchMovieCast = async (id: number) => {
         let url = BASE_URL + END_POINTS.DETAILS + id + END_POINTS.CREDITS
         let response = await axios.get(url, headerObj)
         if (response) {
-            console.log(response.data)
             return response.data
         }
     } catch (error: any) {
@@ -64,7 +63,6 @@ export const fetchMovieShots = async (id: number) => {
         let url = BASE_URL + END_POINTS.DETAILS + id + END_POINTS.IMAGES
         let response = await axios.get(url, headerObj)
         if (response) {
-            console.log(response.data)
             return response.data
         }
     } catch (error: any) {

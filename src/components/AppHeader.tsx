@@ -13,7 +13,6 @@ interface AppHeaderProps {
 
 const AppHeader = (props: AppHeaderProps) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    console.log(props)
     return (
         <View style={styles.container}>
             <Ionicons
